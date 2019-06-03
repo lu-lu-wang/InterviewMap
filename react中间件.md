@@ -47,4 +47,21 @@ Redux本身就提供了非常强大的数据流管理功能，但并不影响它
 
 applyMiddleware就是一个用来加载dispatch的工厂，而需要加工什么样的dispatch，则需要我们传入对应的中间件函数。
 
+### redux-saga
+redux-saga是一个用于管理应用程序Side Effect（副作用，异步处理函数，如接口请求、访问浏览器缓存）的库，它的目标就是让副作用更容易，执行更高效，测试简单，处理故障变得容易。
+
+一个saga就是应用程序中的一个单独的线程，负责处理副作用。redux-saga是一个redux中间件，意味着这个线程可以通过正常的redux action从主应用程序启动，暂定和取消，它能访问整个redux state也可以dispatch、 redux 、action。
+
+redux-saga是middleware的一种，工作与action和reducer之间，按照原始的redux工作流程，当组件中产生一个action后会直接触发reducer修改state;而实际上，组件中发生action后，在进入reducer之前需要先完成一个异步任务，显然原生是不支持该操作的。
+继而saga就在其中充当了处理异步的关键：action被触发后，首先执行异步任务，待完成后会将这个action交给reducer。
+### 原理：
+
+saga需要一个全局监听器（watcher saga）,用于监听组件发出的action，将监听到的action转发给对应接收器（worker saga），再由接收器执行具体任务，任务执行完后，再发出另一个action修改state。需注意：watcher saga监听的action和对应worker saga发出的action不能是同一个，否则会造成死循环。
+在saga中，全局监听器和接收器都是用generator函数和saga自身的一些辅助函数实现对整个流程的控制
+Watch saga是业务触发阶段，worker saga是业务执行阶段
+
+```
+Component -> Action1 -> Watcher Saga -> Worker Sage -> Action2 -> Reducer -> Component
+```
+
 	

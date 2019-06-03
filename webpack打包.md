@@ -1,4 +1,13 @@
 #Webpack: 项目配置
+[webpack](https://webpack.docschina.org)
+
+[配置 npm start](https://www.jianshu.com/p/00340a8cc943)
+
+相关插件：
+
+浏览器自动打开网页需webpack配置：
+[webpack-dev-server](https://webpack.js.org/configuration/dev-server/#devserver-open)
+
 1. webpack
 
 * 基础：为什么要用webpack、安装、基础使用、bundle文件有什么
